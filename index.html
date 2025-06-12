@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Stake-Inspired Position Game with Keyboard Navigation and Symbols</title>
+<title>AdminLine</title>
 <style>
   /* Reset and base styles */
   *, *::before, *::after {
@@ -155,6 +155,16 @@
     pointer-events: none;
     user-select: none;
     font-size: 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .square > span img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
   }
 
   /* Responsive */
@@ -172,17 +182,17 @@
 </head>
 <body>
 
-  <h1>Stake-Inspired Position Game</h1>
+  <h1>AdminLine</h1>
 
   <p class="instructions" id="instructions">
-    Setup mode: Select <strong>2</strong> squares as <span style="color:#db2777">bad squares</span>.
+    Setup mode: Select <strong>4</strong> squares as <span style="color:#db2777">bad squares</span>.
     Then press <strong>Start Game</strong> to play.
   </p>
 
   <div class="controls">
     <button type="button" class="btn" id="btnToggleSetup" aria-pressed="true" aria-label="Toggle Setup Mode">Setup Mode: ON</button>
-    <button type="button" class="btn" id="btnStartGame" disabled>Start Game</button>
-    <button type="button" class="btn" id="btnReset" hidden>Reset Game</button>
+    <button type="button" class="btn" id="btnStartGame" disabled>COMENZAR</button>
+    <button type="button" class="btn" id="btnReset" hidden>REINICIAR</button>
   </div>
 
   <div class="grid" role="list" aria-label="Game grid with selectable squares" tabindex="0" id="gameGrid">
@@ -195,7 +205,7 @@
   (function() {
     const TOTAL_SQUARES = 25; // 5x5 grid
     const GRID_COLUMNS = 5;
-    const BAD_SQUARES_REQUIRED = 2;
+    const BAD_SQUARES_REQUIRED = 4;
 
     const grid = document.getElementById('gameGrid');
     const btnToggleSetup = document.getElementById('btnToggleSetup');
@@ -266,6 +276,7 @@
         const span = square.querySelector('span');
         square.classList.remove('bad-setup', 'correct', 'incorrect', 'disabled', 'selected');
         span.textContent = '';
+        span.innerHTML = ''; // Clear any prior content
         square.style.pointerEvents = 'auto';
 
         if(setupMode) {
@@ -285,9 +296,9 @@
           }
 
           if(pressedSquares.has(idx)) {
-            // Mark pressed safe squares as correct with checkmark
+            // Mark pressed safe squares with an image
             square.classList.add('correct');
-            span.textContent = '✔';
+            span.innerHTML = '<img src="isotipo.jpeg" />';
             square.style.pointerEvents = 'none'; // disable repeated press
             square.tabIndex = -1;
           }
@@ -461,5 +472,4 @@
 </script>
 </body>
 </html>
-
 
